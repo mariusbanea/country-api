@@ -1,8 +1,8 @@
-# Song Lyrics API solution
+# Country API solution
 
-for the Lyrics API white-board challenge (https://repl.it/@thinkful/country-API-eval-question)
+for the Country API white-board challenge (https://repl.it/@thinkful/country-API-eval-question)
 
-### Live preview: https://mariusbanea.github.io/thinkful-song-lyrics-api
+### Live preview: https://mariusbanea.github.io/thinkful-country-api/.
 
 # FAQs
 
@@ -35,12 +35,12 @@ AJAX basics https://www.w3schools.com/xml/ajax_intro.asp
 
 ## Where do I find the API documentation?
 
-https://lyricsovh.docs.apiary.io/
+https://restcountries.eu/
 
 
 ## What is the API end point syntax?
 
-https://api.lyrics.ovh/v1/' + artist + '/' + title
+'https://restcountries.eu/rest/v2/name/' + searchTerm,
 
 ## Do I need an API key?
 
@@ -49,11 +49,6 @@ No.
 ## My page refreshes as soon as I click the button
 
 Use event.preventDefault(); (mode details here https://www.w3schools.com/jquery/event_preventdefault.asp)
-
-## How do I format the lyrics after I receive them from the API?
-
-Use (< pre >< code > + data.lyrics + < /code >< /pre >) wihout spaces inside html tags
-Mode details here https://www.w3schools.com/tags/tag_code.asp and here https://www.w3schools.com/tags/tag_pre.asp
 
 ## How do I make the website accessible?
 
