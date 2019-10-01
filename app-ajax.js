@@ -11,30 +11,35 @@ Also make any necessary adjustments to make this app accessible. */
 
 //Step 2 - define the function to make the api call; shopkeeper goes to warehouse to get shoe
 function getDataFromApi(searchTerm, callback) {
+
+    //full AJAX intro https://www.w3schools.com/xml/ajax_intro.asp
+
     console.log(searchTerm);
 
-
-    //Step 2a - create the url
-    const url = `https://restcountries.eu/rest/v2/name/${searchTerm}`;
-
-    // Step 2b - make the api call using the URL, dataType (JSON or JSONP), type (GET or POST)
-    fetch(url)
-
-        //Step 2c - success scenario (call the function to display the results)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error(response.statusText);
+    // Step 2a - make the api call using the URL, dataType (JSON or JSONP), type (GET or POST)
+    $.ajax({
+            type: "GET",
+            url: 'https://restcountries.eu/rest/v2/name/' + searchTerm,
+            dataType: 'json',
         })
-        .then(responseJson => displaySearchData(responseJson))
 
-        // Step 2d - failure scenario (display errors)
-        .catch(err => {
-            $("#error-message").text(`Something went wrong: ${err.message}`);
+        //Step 2b - success scenario (call the function to display the results)
+        .done(function (dataOutput) {
+
+            //displays the external api json object in the console
+            console.log(dataOutput);
+            displaySearchData(dataOutput);
+        })
+
+        // Step 2c - failure scenario (display errors)
+        .fail(function (jqXHR, error, errorThrown) {
+
+            //display errors
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+            alert("no results");
         });
-
-
 }
 //Step 3 - display the results; sales process
 function displaySearchData(data) {
