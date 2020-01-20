@@ -52,11 +52,13 @@ function getDataFromApi(searchTerm, callback) {
             if (response.ok) {
                 return response.json();
             }
+
+            // DISPLAY ERRORS if the server connection works but the json data is broken
             throw new Error(response.statusText);
         })
         .then(responseJson => displaySearchData(responseJson))
 
-    // Step 2d - failure scenario (display errors)
+    // Step 2d - failure scenario (DISPLAY ERRORS if the server connection fails)
     .catch(err => {
         console.log(err);
     });
@@ -69,15 +71,27 @@ function displaySearchData(responseJson) {
     //Step 3a - console.log the results
     console.log(responseJson);
 
-    //Step 3b - if there are results, create an HTML results variable
-    let htmlOutput = "<p>" + responseJson[0].name + "</p><br />";
-    htmlOutput += "<p>" + responseJson[0].population + "</p>";
-    htmlOutput += "<p>" + responseJson[0].capital + "</p>";
-    htmlOutput += "<p>" + responseJson[0].region + "</p>";
+    //Step 3b - if there are no results show errors (DISPLAY ERRORS if the server connection works and the json data is valid, but there are no resutls)
+    if (responseJson.length == 0) {
 
-    //Step 3e - send the content of HTML results variable to the HTML - display them in the html page (use "<pre><code>" to auto format the lyrics mode details here https: //www.w3schools.com/tags/tag_code.asp and here https://www.w3schools.com/tags/tag_pre.asp )
-    $('.js-search-results').html(htmlOutput);
+        //show an alert
+        alert("No results");
+    }
+    //Step 3c - if there are results, create an HTML results variable
+    else {
+        let htmlOutput = "";
 
+        //Step 3d - populate the htmlOutut variable with all the relevant data
+        for (let i = 0; i < responseJson.length; i++) {
+            htmlOutput += "<p>" + responseJson[i].name + "</p><br />";
+            htmlOutput += "<p>" + responseJson[i].population + "</p>";
+            htmlOutput += "<p>" + responseJson[i].capital + "</p>";
+            htmlOutput += "<p>" + responseJson[i].region + "</p>";
+        }
+
+        //Step 3e - send the content of HTML results variable to the HTML - display them in the html page (use "<pre><code>" to auto format the lyrics mode details here https: //www.w3schools.com/tags/tag_code.asp and here https://www.w3schools.com/tags/tag_pre.asp )
+        $('.js-search-results').html(htmlOutput);
+    }
 }
 
 
