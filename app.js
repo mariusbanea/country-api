@@ -18,17 +18,12 @@ function watchSubmit() {
         event.preventDefault();
 
         //Step 1b - get user input - get the artist value from the input box
-        let queryTarget = $(event.currentTarget).find('.js-query');
+        let query = $('.js-query').val();
 
         //Step 1c - input validation - validate artist
-        if (queryTarget == '') {
+        if (query == '') {
             alert("Please select a country");
         } else {
-            //Step 1d - use the api function - use that artist and title values to call the getResults function defined at the top
-
-            let query = queryTarget.val();
-            // clear out the input
-            queryTarget.val("");
             getDataFromApi(query, displaySearchData);
         }
 
@@ -47,8 +42,8 @@ function getDataFromApi(searchTerm, callback) {
     // Step 2b - make the api call using the URL, dataType (JSON or JSONP), type (GET or POST)
     fetch(url)
 
-    //Step 2c - success scenario (call the function to display the results)
-    .then(response => {
+        //Step 2c - success scenario (call the function to display the results)
+        .then(response => {
             if (response.ok) {
                 return response.json();
             }
@@ -58,10 +53,10 @@ function getDataFromApi(searchTerm, callback) {
         })
         .then(responseJson => displaySearchData(responseJson))
 
-    // Step 2d - failure scenario (DISPLAY ERRORS if the server connection fails)
-    .catch(err => {
-        console.log(err);
-    });
+        // Step 2d - failure scenario (DISPLAY ERRORS if the server connection fails)
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 
@@ -83,13 +78,15 @@ function displaySearchData(responseJson) {
 
         //Step 3d - populate the htmlOutut variable with all the relevant data
         for (let i = 0; i < responseJson.length; i++) {
-            htmlOutput += "<p>" + responseJson[i].name + "</p><br />";
-            htmlOutput += "<p>" + responseJson[i].population + "</p>";
-            htmlOutput += "<p>" + responseJson[i].capital + "</p>";
-            htmlOutput += "<p>" + responseJson[i].region + "</p>";
+            htmlOutput +=`
+                <p> ${responseJson[i].name}</p><br />
+                <p> ${responseJson[i].population}</p>
+                <p> ${responseJson[i].capital}</p>
+                <p> ${responseJson[i].region}</p>
+            `;
         }
 
-        //Step 3e - send the content of HTML results variable to the HTML - display them in the html page (use "<pre><code>" to auto format the lyrics mode details here https: //www.w3schools.com/tags/tag_code.asp and here https://www.w3schools.com/tags/tag_pre.asp )
+        //Step 3e - send the content of HTML results variable to the HTML
         $('.js-search-results').html(htmlOutput);
     }
 }
