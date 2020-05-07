@@ -72,6 +72,7 @@ function displaySearchData(responseJson) {
         //show an alert
         alert("No results");
     }
+
     //Step 3c - if there are results, create an HTML results variable
     else {
         let htmlOutput = "";
@@ -79,10 +80,10 @@ function displaySearchData(responseJson) {
         //Step 3d - populate the htmlOutut variable with all the relevant data
         for (let i = 0; i < responseJson.length; i++) {
             htmlOutput +=`
-                <p> ${responseJson[i].name}</p><br />
-                <p> ${responseJson[i].population}</p>
-                <p> ${responseJson[i].capital}</p>
-                <p> ${responseJson[i].region}</p>
+                <h3> ${responseJson[i].name}</h3><br />
+                <p>- ${responseJson[i].population}</p>
+                <p>- ${responseJson[i].capital}</p>
+                <p>- ${responseJson[i].region}</p>
             `;
         }
 
